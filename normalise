@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#Amoldeep Kaur Phull (23208223)
+
+
+#for normalising profiles
+
+./sort $1  > profile.txt
+ttlwords=$(cat profile.txt | awk 'FNR == 27 {print $2}')
+sent=$(cat profile.txt | awk 'FNR == 17 {print $2}')
+
+#normalise everything except word and sentence
+words=(also although and as because before but comma compound_word contraction for if nor of or semi_colon since that though until when whenever whereas which while yet)
+ 
+for i in "${words[@]}"
+do
+    awk -v i="$i" -v t="$ttlwords" ' $1 == i {printf "%10s %10s\n", $1, $2*1000/t}'  profile.txt
+
+done 
+
+#normalise sentences
+awk -v s="$sent" -v t="$ttlwords" ' $1 == "sentence" {printf "%10s %10s\n", $1, t/s*1}'  profile.txt 
+
+rm profile.txt
+ 
+
+

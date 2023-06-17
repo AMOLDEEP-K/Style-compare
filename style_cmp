@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Amoldeep Kaur Phull (23208223)
+
+if [[ $# -eq 0 ]]
+then
+    echo "Usage:style_cmp <text file> <text file>"
+    exit 1
+fi
+
+if [[ $# -gt 2 ]]
+then
+    echo "Error: Max of two arguments allowed"
+    exit 1
+fi
+# case for when only one file argument
+if [[ $# -eq 1 ]]
+then
+     if ! [[ -f "$1" ]]
+     then
+     echo "The input file $1 does not exist."
+     exit 1
+ else
+    ./sort $1 #| sort | awk -F : '{printf "%10s %10s\n", $1, $2 }'
+fi
+fi
+
+# case for when 2 files as argument
+if [[ $# -eq 2 ]]
+then
+     if ! [[ -f "$1" ]] || ! [[ -f "$2" ]]
+     then
+        echo "The input file $1 does not exist."
+        exit 1
+    else
+        ans=$(./compare $1 $2)
+        echo "The Euclidian Distance between the two texts is: $ans"
+     fi
+fi
+

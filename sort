@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Amoldeep Kaur Phull (23208223)
+
+#sort profile
+./profile $1 | sort | awk -F : '{printf "%10s %10s\n", $1, $2 }' 

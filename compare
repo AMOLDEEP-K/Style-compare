@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Amoldeep Kaur Phull (23208223)
+
+#compare and calculate profiles
+
+./normalise $1 | sort > 1normalised
+./normalise $2 | sort > 2normalised
+
+paste  1normalised 2normalised > temp 
+awk '{printf  "%10s %10s %10s\n ", $1,$2,$4 }' temp | awk '{ print $1,($2-$3)^2 }' | awk '{ sum+=$2} END {print sum}' | awk ' { printf "%.3f\n", sqrt($1)} ' 
+
+rm temp
+rm 1normalised
+rm 2normalised
